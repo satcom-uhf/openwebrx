@@ -1,3 +1,4 @@
+import sys
 from owrx.jsons import Encoder
 import base64
 import hashlib
@@ -5,6 +6,7 @@ import json
 from multiprocessing import Pipe
 import select
 import threading
+
 from abc import ABC, abstractmethod
 
 import logging
@@ -67,7 +69,7 @@ class WebSocketConnection(object):
         (self.interruptPipeRecv, self.interruptPipeSend) = Pipe(duplex=False)
         self.open = True
         self.sendLock = threading.Lock()
-
+        logger.debug(sys.argv)
         headers = {key.lower(): value for key, value in self.handler.headers.items()}
         if "upgrade" not in headers:
             raise WebSocketException("Upgrade header not found")
