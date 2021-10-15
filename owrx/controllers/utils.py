@@ -5,12 +5,12 @@ import os
 
 class HashCheck:
     def __init__(self, data, secret):
-        self.hash = data['hash']
+        self.hash = data['hash'][0]
         self.secret_key = hashlib.sha256(secret).digest()
         self.data = {}
         for k, v in data.items():
             if k != 'hash':
-                self.data[k] = v
+                self.data[k] = v[0]
 
     def data_check_string(self):
         a = sorted(self.data.items())
