@@ -12,7 +12,11 @@ class WebSocketController(Controller):
         chatId = os.environ['CHAT_ID']
         logger.debug(self.request.query)
         checker=HashCheck(self.request.query, secret)
-        if not checker.check_hash() or not checker.is_subscribed(chatId):
+        if not checker.check_hash():
+            logger.warning("Wrong hash")
+            self.send_response("Unauthorized", 401, "application/json")
+        elif not checker.is_subscribed(chatId):
+            logger.warning("Not subscribed")
             self.send_response("Unauthorized", 403, "application/json")
         else:
             conn = WebSocketConnection(self.handler, HandshakeMessageHandler())
