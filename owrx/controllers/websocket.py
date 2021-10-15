@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 class WebSocketController(Controller):
     def indexAction(self):
         logger.debug("WEBSOOOKETTTT")
+        logger.debug(self.request)
         conn = WebSocketConnection(self.handler, HandshakeMessageHandler())
         # enter read loop
         conn.handle()
