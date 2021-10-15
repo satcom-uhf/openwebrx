@@ -8,7 +8,7 @@ class HashCheck:
     def __init__(self, data, secret):
         self.bot = telebot.TeleBot(secret)
         self.hash = data['hash'][0]
-        self.secret_key = hashlib.sha256(secret).digest()
+        self.secret_key = hashlib.sha256(secret.encode('utf-8')).digest()
         self.data = {}
         for k, v in data.items():
             if k != 'hash':
@@ -28,7 +28,7 @@ class HashCheck:
         return self.calc_hash() == self.hash
     def is_subscribed(self, chat_id):
             try:
-                self.bot.get_chat_member(chat_id, int(self.data['id']))
+                self.bot.get_chat_member(chat_id, int(self.data['id'])
                 return True
             except ApiTelegramException as e:
                 if e.result_json['description'] == 'Bad Request: user not found':
