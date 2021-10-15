@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 class WebSocketController(Controller):
     def indexAction(self):
         secret = os.environ['BOT_TOKEN'].encode('utf-8')
-        chatId = os.environ['CHAT_ID']
+        chatId = int(os.environ['CHAT_ID'])
         logger.debug(self.request.query)
         checker=HashCheck(self.request.query, secret)
         if not checker.check_hash():
