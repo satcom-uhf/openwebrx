@@ -28,7 +28,7 @@ class HashCheck:
         return self.calc_hash() == self.hash
     def is_subscribed(self, chat_id):
             try:
-                self.bot.get_chat_member(chat_id, self.data['id'])
+                self.bot.get_chat_member(chat_id, int(self.data['id']))
                 return True
             except ApiTelegramException as e:
                 if e.result_json['description'] == 'Bad Request: user not found':
