@@ -9,8 +9,10 @@ logger = logging.getLogger(__name__)
 class WebSocketController(Controller):
     def indexAction(self):
         secret = os.environ['BOT_TOKEN'].encode('utf-8')
+        chatId = os.environ['CHAT_ID']
         logger.debug(self.request.query)
-        if not HashCheck(self.request.query, secret).check_hash():
+        checker=HashCheck(self.request.query, secret)
+        if not checker.check_hash() or not checker.is_subscribed(chatId):
             self.send_response("Unauthorized", 403, "application/json")
         else:
             conn = WebSocketConnection(self.handler, HandshakeMessageHandler())
