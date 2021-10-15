@@ -85,12 +85,12 @@ class RegexRoute(Route):
 class Router(object):
     def __init__(self):
         self.routes = [
-            StaticRoute("/", IndexController),
+            #StaticRoute("/", IndexController),
             StaticRoute("/robots.txt", RobotsController),
             StaticRoute("/status.json", StatusController),
             RegexRoute("^/static/(.+)$", OwrxAssetsController),
             RegexRoute("^/compiled/(.+)$", CompiledAssetsController),
-            RegexRoute("^/aprs-symbols/(.+)$", AprsSymbolsController),
+            #RegexRoute("^/aprs-symbols/(.+)$", AprsSymbolsController),
             StaticRoute("/ws/", WebSocketController),
             RegexRoute("^(/favicon.ico)$", OwrxAssetsController),
             StaticRoute("/map", MapController),
